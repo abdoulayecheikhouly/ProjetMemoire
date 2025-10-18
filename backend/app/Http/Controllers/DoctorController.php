@@ -10,30 +10,46 @@ class DoctorController extends Controller
     public function index()
     {
         $doctors = User::where('role', 'doctor')->get();
-        return response()->json($doctors);
+        return response()->json([
+            'data' => $doctors,
+            'message' => 'Médecins récupérés avec succès'
+        ], 200);
     }
 
     public function store(Request $request)
     {
         $doctor = Doctor::create($request->all());
-        return response()->json($doctor, 201);
+        return response()->json([
+            'data' => $doctor,
+            'message' => 'Médecin créé avec succès'
+        ], 201);
     }
 
     public function show($id)
     {
-        return Doctor::findOrFail($id);
+        $doctor = Doctor::findOrFail($id);
+        return response()->json([
+            'data' => $doctor,
+            'message' => 'Médecin récupéré avec succès'
+        ], 200);
     }
 
     public function update(Request $request, $id)
     {
         $doctor = Doctor::findOrFail($id);
         $doctor->update($request->all());
-        return response()->json($doctor);
+        return response()->json([
+            'data' => $doctor,
+            'message' => 'Médecin mis à jour avec succès'
+        ], 200);
     }
 
     public function destroy($id)
     {
-        Doctor::destroy($id);
-        return response()->json(['message' => 'Médecin supprimé']);
+        $doctor = Doctor::findOrFail($id);
+        $doctor->delete();
+        return response()->json([
+            'message' => 'Médecin supprimé avec succès'
+        ], 200);
     }
 }
