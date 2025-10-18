@@ -11,9 +11,9 @@ use App\Http\Controllers\PatientController;
 // API Version 1 - RESTful routes
 Route::prefix('api/v1')->group(function () {
     
-    // Authentication routes (public)
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login']);
+    // Authentication routes (public) - avec rate limiting
+    Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:5,1');
+    Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1');
 
     // Protected routes
     Route::middleware('auth:sanctum')->group(function () {
