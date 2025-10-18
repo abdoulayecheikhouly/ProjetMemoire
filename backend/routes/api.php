@@ -9,7 +9,7 @@ use App\Http\Controllers\PrescriptionController;
 use App\Http\Controllers\PatientController;
 
 // API Version 1 - RESTful routes
-Route::prefix('api/v1')->group(function () {
+Route::prefix('v1')->group(function () {
     
     // Authentication routes (public) - avec rate limiting
     Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:5,1');
