@@ -1,0 +1,106 @@
+/* Pages.css */
+
+/* Fond général de la page */
+.page-container {
+  background-color: #f0f4f8; /* gris clair */
+  min-height: 100vh;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Sections blanches (cartes, bulles, tableaux) */
+.card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* Titres de section */
+.card h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #1e3a8a; /* bleu foncé */
+}
+
+/* Bulles ou indicateurs */
+.bubble {
+  display: inline-block;
+  background-color: #3b82f6; /* bleu */
+  color: #fff;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+/* Boutons */
+.button {
+  background-color: #3b82f6;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  background-color: #2563eb;
+}
+
+/* Inputs et formulaires */
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db; /* gris clair */
+}
+
+label {
+  font-weight: bold;
+  color: #1f2937;
+}
+
+/* Tableaux simples */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table th, .table td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.table th {
+  background-color: #f3f4f6;
+  text-align: left;
+  color: #1e3a8a;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .bubble {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 0.8rem;
+  }
+  .button {
+    width: 100%;
+    padding: 12px;
+  }
+  .table th, .table td {
+    padding: 8px;
+  }
+}

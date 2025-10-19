@@ -1,0 +1,10 @@
+/* src/index.css */
+
+/* Option 1 : vide si tu mets tout le style dans Dashboard.css */
+
+/* Option 2 : styles globaux simples */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f3f4f6;
+}
