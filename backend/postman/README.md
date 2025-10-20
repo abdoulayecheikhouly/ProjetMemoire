@@ -202,3 +202,7 @@ En cas de problème :
 2. Vérifier la configuration de la base de données
 3. Consulter les logs Laravel (`storage/logs/laravel.log`)
 4. Consulter les logs API (`storage/logs/api.log`)
+
+
+
+

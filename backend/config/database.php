@@ -17,7 +17,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'sqlite'),
+    'default' => env('DB_CONNECTION', 'pgsql_testing'),
 
     /*
     |--------------------------------------------------------------------------
@@ -131,7 +131,7 @@ return [
         'pgsql_testing' => [
             'driver' => 'pgsql',
             'host' => env('DB_TEST_HOST', '127.0.0.1'),
-            'port' => env('DB_TEST_PORT', '5433'),
+            'port' => env('DB_TEST_PORT', '5434'),
             'database' => env('DB_TEST_DATABASE', 'test_db'),
             'username' => env('DB_TEST_USERNAME', 'test_user'),
             'password' => env('DB_TEST_PASSWORD', 'test_password'),

@@ -44,3 +44,7 @@ class TestUserSeeder extends Seeder
         $this->command->info('   - Patient: patient@example.com / Password123');
     }
 }
+
+
+
+

@@ -15,7 +15,7 @@ sleep 10
 echo "✅ PostgreSQL de test démarré!"
 echo ""
 echo "📋 Service disponible:"
-echo "  - PostgreSQL Test: localhost:5433"
+echo "  - PostgreSQL Test: localhost:5434"
 echo "  - Base de données: test_db"
 echo "  - Utilisateur: test_user"
 echo "  - Mot de passe: test_password"

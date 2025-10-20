@@ -38,7 +38,7 @@ chmod +x scripts/start-test-db.sh
 
 ## 📋 Services disponibles
 
-- **PostgreSQL Test**: `localhost:5433`
+- **PostgreSQL Test**: `localhost:5434`
 - **Base de données**: `test_db`
 - **Utilisateur**: `test_user`
 - **Mot de passe**: `test_password`
