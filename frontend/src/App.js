@@ -10,6 +10,12 @@ import DashboardAdmin from "./pages/DashboardAdmin";
 import PrivateRoute from "./components/PrivateRoute";
 import FormulaireRDV from "./pages/FormulaireRDV";
 import Teleconsultation from "./pages/Teleconsultation";
+import 'primereact/resources/themes/saga-blue/theme.css';     
+import 'primereact/resources/primereact.min.css';              
+import 'primeicons/primeicons.css';                            
+
+
+
 
 export default function App() {
   const [role, setRole] = useState("");
@@ -45,6 +51,7 @@ export default function App() {
           <Route path="/" element={<Accueil />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/medecin/teleconsultation/:id" element={<Teleconsultation />} />
 
           <Route path="/dashboard-patient" element={
             <PrivateRoute role="patient"><DashboardPatient /></PrivateRoute>

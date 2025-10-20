@@ -18,32 +18,33 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', fn(Request $request) => $request->user());
 
     // ADMIN
-   Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('doctors', DoctorController::class);
     Route::get('/patients', [PatientController::class, 'index']);
     Route::get('/patients/{id}', [PatientController::class, 'show']);
-    Route::get('/admin/users', [AdminController::class, 'index']);
+    Route::get('/admin/user', [AdminController::class, 'index']);
     Route::delete('/admin/user/{id}', [AdminController::class, 'destroy']);
-});
-
-});
-
-        
-
 
     // PATIENT
-    Route::middleware(['auth:sanctum', 'role:patient'])->group(function () {
-    Route::apiResource('appointments', AppointmentController::class)
-        ->only(['store', 'index', 'show']);
-});
-
- 
+    Route::middleware('role:patient')->group(function () {
+        Route::apiResource('appointments', AppointmentController::class)
+            ->only(['store', 'index', 'show']);
+    });
 
     // DOCTOR
+    Route::middleware('role:doctor')->group(function () {
+        Route::apiResource('appointments', AppointmentController::class)
+            ->only(['update']);
+        Route::apiResource('prescriptions', PrescriptionController::class);
+    });
     Route::middleware(['auth:sanctum', 'role:doctor'])->group(function () {
-    Route::apiResource('appointments', AppointmentController::class)
-        ->only(['update']);
-    Route::apiResource('prescriptions', PrescriptionController::class);
+    Route::post('/availabilities', [AvailabilityController::class, 'store']);
+    Route::get('/availabilities', [AvailabilityController::class, 'index']);
+});
+Route::middleware(['auth:sanctum', 'role:admin'])->get('/admin/stats', [AdminController::class, 'stats']);
+Route::middleware(['auth:sanctum', 'role:patient'])->get('/patient/appointments', [AppointmentController::class, 'history']);
+Route::middleware(['auth:sanctum', 'role:doctor'])->post('/medical-records', [MedicalRecordController::class, 'store']);
+Route::middleware(['auth:sanctum'])->get('/medical-records/{appointmentId}', [MedicalRecordController::class, 'show']);
+
 });
 
 

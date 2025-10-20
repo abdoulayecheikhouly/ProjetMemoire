@@ -30,9 +30,20 @@ class AppointmentController extends Controller
 
     public function show($id)
     {
-       Appointment::with(['patient', 'doctor', 'prescription'])->findOrFail($id);
+       return 
+           Appointment::with(['patient', 'doctor', 'prescription'])->findOrFail($id);
 
     }
+    public function history(Request $request)
+{
+    $userId = $request->user()->id;
+
+    return Appointment::with(['doctor'])
+        ->where('patient_id', $userId)
+        ->orderByDesc('date')
+        ->get();
+}
+
 
     public function update(Request $request, $id)
     {

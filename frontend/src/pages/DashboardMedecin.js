@@ -1,52 +1,53 @@
-// src/pages/DashboardMedecin.jsx
 import React, { useEffect, useState } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
+import RoleGuard from "../components/RoleGuard";
+import Layout from "../components/Layout";
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { Button } from 'primereact/button';
 
 export default function DashboardMedecin() {
   const [patients, setPatients] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  <Column field="status" header="Statut" body={(rowData) => (
+  <span className={`badge bg-${rowData.status === 'confirmé' ? 'success' : rowData.status === 'annulé' ? 'danger' : 'warning'}`}>
+    {rowData.status}
+  </span>
+)} />
+
 
   useEffect(() => {
-    api.get("/patients") // ✅ route confirmée dans Postman
+    api.get("/patients")
       .then(res => {
-        console.log("✅ Patients reçus :", res.data);
         setPatients(res.data);
+        setLoading(false);
       })
-      .catch(err => console.error("❌ Erreur chargement patients :", err));
+      .catch(err => console.error("Erreur chargement patients:", err.response?.status));
   }, []);
 
-  const handlePrendreRDV = (id) => {
-    navigate(`/medecin/rendezvous/${id}`);
-  };
-
-  const handleTeleconsultation = (id) => {
-    navigate(`/medecin/teleconsultation/${id}`);
-  };
+  const actionTemplate = (rowData) => (
+    <div className="flex gap-2">
+      <Button label="RDV" icon="pi pi-calendar" className="p-button-success p-button-sm"
+              onClick={() => navigate(`/medecin/rendezvous/${rowData.id}`)} />
+      <Button label="Téléconsultation" icon="pi pi-video" className="p-button-primary p-button-sm"
+              onClick={() => navigate(`/medecin/teleconsultation/${rowData.id}`)} />
+    </div>
+  );
 
   return (
-    <div className="container mt-5">
-      <h2 className="text-success mb-4">👨‍⚕️ Mes Patients</h2>
-      <div className="row">
-        {patients.map((p, index) => (
-          <div className="col-md-4 mb-4" key={index}>
-            <div className="card shadow-sm">
-              <div className="card-body">
-                <h5 className="card-title">{p.name}</h5>
-                <p className="card-text">{p.email}</p>
-                <div className="d-flex justify-content-between">
-                  <button className="btn btn-outline-success btn-sm" onClick={() => handlePrendreRDV(p.id)}>
-                    Prendre RDV
-                  </button>
-                  <button className="btn btn-outline-primary btn-sm" onClick={() => handleTeleconsultation(p.id)}>
-                    Téléconsultation
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    <RoleGuard allowedRoles={['doctor']}>
+      <Layout>
+        <h2 className="text-success mb-4">👨‍⚕️ Mes Patients</h2>
+        <div className="card p-4">
+          <DataTable value={patients} paginator rows={10} loading={loading} responsiveLayout="scroll">
+            <Column field="name" header="Nom" sortable />
+            <Column field="email" header="Email" />
+            <Column body={actionTemplate} header="Actions" />
+          </DataTable>
+        </div>
+      </Layout>
+    </RoleGuard>
   );
 }
