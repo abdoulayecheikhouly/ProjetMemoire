@@ -142,3 +142,4 @@ php artisan migrate:status
 
 
 
+
