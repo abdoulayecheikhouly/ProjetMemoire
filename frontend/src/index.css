@@ -1,0 +1,34 @@
+/* src/index.css */
+
+/* Option 1 : vide si tu mets tout le style dans Dashboard.css */
+
+/* Option 2 : styles globaux simples */
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: #f5f8fc;
+}
+
+.card {
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.sidebar {
+  background-color: #1976d2;
+}
+
+.sidebar a:hover {
+  background-color: #1565c0;
+  transition: 0.3s;
+}
+
+.header-logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #1976d2;
+}
