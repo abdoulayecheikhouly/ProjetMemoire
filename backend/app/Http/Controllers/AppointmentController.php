@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class AppointmentController extends Controller
 {
@@ -20,7 +21,7 @@ class AppointmentController extends Controller
     {
         $fields = $request->validate([
             'user_id' => 'required|exists:users,id',
-            'doctor_id' => 'required|exists:doctors,id',
+            'doctor_id' => 'required|exists:users,id',
             'date' => 'required|date',
             'motif' => 'required|string',
             'status' => 'required|string'

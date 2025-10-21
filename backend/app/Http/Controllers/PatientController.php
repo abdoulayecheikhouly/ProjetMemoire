@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Hash;
 
 class PatientController extends Controller
 {
-    
- public function index()
+    public function index()
     {
         $patients = User::where('role', 'patient')->get();
         return response()->json([
@@ -74,5 +73,3 @@ class PatientController extends Controller
         ], 200);
     }
 }
-
-

@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class RoleMiddleware
 {
@@ -17,18 +16,17 @@ class RoleMiddleware
      * @return mixed
      */
     public function handle(Request $request, Closure $next, $role = null)
-{
-    if (!Auth::check()) {
-        return response()->json(['message' => 'Veuillez vous connecter.'], 401);
+    {
+        $user = $request->user(); // plus fiable que Auth::user() avec Sanctum
+
+        if (!$user) {
+            return response()->json(['message' => 'Veuillez vous connecter.'], 401);
+        }
+
+        if ($role && $user->role !== $role) {
+            return response()->json(['message' => 'Accès refusé : rôle requis = ' . $role], 403);
+        }
+
+        return $next($request);
     }
-
-    $user = Auth::user();
-
-    if ($role && $user->role !== $role) {
-        return response()->json(['message' => 'Accès refusé : rôle non autorisé.'], 403);
-    }
-
-    return $next($request);
-}
-
 }
