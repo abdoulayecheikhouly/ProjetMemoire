@@ -4,46 +4,51 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class AppointmentController extends Controller
 {
     public function index()
     {
-        Appointment::with(['patient', 'doctor'])->get();
+        return response()->json(
+            Appointment::with(['patient', 'doctor'])->get()
+        );
+    }
 
+    public function today()
+    {
+        $rdvToday = Appointment::whereDate('date', Carbon::today())->count();
+        return response()->json(['count' => $rdvToday]);
     }
 
     public function store(Request $request)
     {
         $fields = $request->validate([
             'user_id' => 'required|exists:users,id',
-            'doctor_id' => 'required|exists:doctors,id',
+            'doctor_id' => 'required|exists:users,id',
             'date' => 'required|date',
             'motif' => 'required|string',
             'status' => 'required|string'
         ]);
 
         $appointment = Appointment::create($fields);
-
         return response()->json($appointment, 201);
     }
 
     public function show($id)
     {
-       return 
-           Appointment::with(['patient', 'doctor', 'prescription'])->findOrFail($id);
-
+        return Appointment::with(['patient', 'doctor', 'prescription'])->findOrFail($id);
     }
+
     public function history(Request $request)
-{
-    $userId = $request->user()->id;
+    {
+        $userId = $request->user()->id;
 
-    return Appointment::with(['doctor'])
-        ->where('patient_id', $userId)
-        ->orderByDesc('date')
-        ->get();
-}
-
+        return Appointment::with(['doctor'])
+            ->where('patient_id', $userId)
+            ->orderByDesc('date')
+            ->get();
+    }
 
     public function update(Request $request, $id)
     {
